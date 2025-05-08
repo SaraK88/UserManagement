@@ -16,7 +16,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 public class WebSecurityConfig {
 
     @Autowired
-    private final CustomOAuth2UserService customOAuth2UserService;
+    private CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -27,7 +27,7 @@ public class WebSecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
 
                 .oauth2Login(oauth2 -> {
-                            oauth2.userInfoEndpoint(userInfo -> userInfo.userService(customOauth2UserService));
+                            oauth2.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService));
                         }
                 );
         http.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
