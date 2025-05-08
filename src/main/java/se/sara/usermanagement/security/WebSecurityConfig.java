@@ -1,7 +1,7 @@
 package se.sara.usermanagement.security;
 
 import lombok.RequiredArgsConstructor;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-//    @Autowired
+    @Autowired
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
