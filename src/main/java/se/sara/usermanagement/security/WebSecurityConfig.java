@@ -8,10 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 @Configuration
-@RequiredArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig {
 
@@ -19,23 +17,22 @@ public class WebSecurityConfig {
     private CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(request -> request
-                .requestMatchers("/","/css/**","/js/**","/images/**", "/api/v1/auth/**", "/login/**", "oauth_login*", "/oauth2/authorization/**").permitAll()
-                .anyRequest().authenticated());
-        http.csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-
-                .oauth2Login(oauth2 -> {
-                            oauth2.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService));
-                        }
-                );
-        http.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
-
-
-
-        return http.build();
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .authorizeHttpRequests(request -> request
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/login/**", "/oauth2/authorization/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(customOAuth2UserService)
+                )
+                .defaultSuccessUrl("/", true)
+            )
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            )
+            .build();
     }
-
 }
-

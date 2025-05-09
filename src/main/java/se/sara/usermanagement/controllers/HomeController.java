@@ -18,8 +18,9 @@ public class HomeController extends BaseController{
     @GetMapping("/")
     public String home(Model model) {
 
+        String user = getLoggedInEmail();
         model.addAttribute("players", playerRepository.findAll());
-        model.addAttribute("user","Stefan");
+        model.addAttribute("user", user);
         return "home";
     }
     @GetMapping("/profile")
@@ -27,5 +28,12 @@ public class HomeController extends BaseController{
         String user =getLoggedInEmail();
         model.addAttribute("user",user);
         return "profile";
+    }
+
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        String user = getLoggedInEmail();
+        model.addAttribute("user", user);
+        return "admin";
     }
 }

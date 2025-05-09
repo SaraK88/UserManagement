@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.2.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>se.sara</groupId>
     <artifactId>UserManagement</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>JawaWebDemoApril</name>
-    <description>JawaWebDemoApril</description>
+    <name>UserManagement</name>
+    <description>UserManagement</description>
     <url/>
     <licenses>
         <license/>
@@ -94,10 +94,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>

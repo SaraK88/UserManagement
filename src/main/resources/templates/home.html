@@ -3,6 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .login-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .login-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+        .github-btn {
+            background-color: #24292e;
+        }
+        .google-btn {
+            background-color: #4285f4;
+        }
+    </style>
 </head>
 <body>
 <h1>Hi and welcome</h1>
@@ -11,6 +31,16 @@
 <div th:each="onePlayer: ${players}">
     <h2 th:text="${onePlayer.getName()}"></h2>
     <p th:text="${onePlayer.getAge()}"></p>
+</div>
+
+<div class="login-buttons" th:if="${user == null}">
+    <h3>Login with:</h3>
+    <a href="/oauth2/authorization/github" class="login-btn github-btn">
+        Login with GitHub
+    </a>
+    <a href="/oauth2/authorization/google" class="login-btn google-btn">
+        Login with Google
+    </a>
 </div>
 </body>
 </html>
